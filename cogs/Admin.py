@@ -16,8 +16,6 @@ class Admin(commands.Cog):
         if message.content == "Pavel":
             await message.delete()
             await message.channel.send("You can't use that name!")
-        elif message.content == "Toxic":
-            await message.channel.send("Toksiko e peder")
     
     #Kick
     @commands.command()
