@@ -74,7 +74,6 @@ class Music(commands.Cog):
 
     @commands.command()
     async def play(self, ctx, *, query):
-        """Plays a song from YouTube by search query or URL."""
         async with ctx.typing():
             try:
                 # Check if the query is a URL; if not, perform a YouTube search

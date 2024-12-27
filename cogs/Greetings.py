@@ -6,24 +6,24 @@ class Greetings(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    #Astel
+    # Astel Command
     @commands.command()
     async def hello(self, ctx):
-        await ctx.send("Hello, I am Astel!👾")
+        await ctx.send("Hello, I am Astel! 👾")
 
-    #Hello
+    # Welcome Message
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = self.client.get_channel(1318216623097643132)
         if channel:
-            await channel.send("Welcome!👾")
+            await channel.send(f"Welcome to the server, {member.mention}! 👾")
 
-    #Goodbye
+    # Goodbye Message
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         channel = self.client.get_channel(1318216623097643132)
         if channel:
-            await channel.send("Goodbye!👾")
-    
+            await channel.send(f"Goodbye, {member.name}! 👾 We hope to see you again!")
+
 async def setup(client):
     await client.add_cog(Greetings(client))
