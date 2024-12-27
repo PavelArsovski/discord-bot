@@ -56,14 +56,6 @@ class Music(commands.Cog):
             asyncio.run_coroutine_threadsafe(ctx.send(f"Now playing: {song['title']}"), self.client.loop)
 
     @commands.command()
-    async def join(self, ctx):
-        if ctx.author.voice:
-            channel = ctx.author.voice.channel
-            await channel.connect()
-        else:
-            await ctx.send("You are not in a voice channel! Please join one to use this command.")
-
-    @commands.command()
     async def leave(self, ctx):
         if ctx.voice_client:
             await ctx.voice_client.disconnect()
@@ -74,9 +66,16 @@ class Music(commands.Cog):
 
     @commands.command()
     async def play(self, ctx, *, query):
+        if not ctx.author.voice:
+            await ctx.send("You need to be in a voice channel to play music!")
+            return
+        
+        if not ctx.voice_client:
+            channel = ctx.author.voice.channel
+            await channel.connect()
+
         async with ctx.typing():
             try:
-                # Check if the query is a URL; if not, perform a YouTube search
                 if not query.startswith("http"):
                     search_query = f"ytsearch:{query}"
                     info = await self.client.loop.run_in_executor(None, lambda: ytdl.extract_info(search_query, download=False))
@@ -101,7 +100,8 @@ class Music(commands.Cog):
                     self.queue.append({'player': player, 'title': player.title})
                     await ctx.send(f"Added to queue: {player.title}")
             except Exception as e:
-                await ctx.send(f"The bot need to join the channel first!")
+                await ctx.send("An error occurred while trying to play the music.")
+                print(f"Error in play command: {e}")
 
     @commands.command()
     async def queue(self, ctx):

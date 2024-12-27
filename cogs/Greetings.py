@@ -11,6 +11,11 @@ class Greetings(commands.Cog):
     async def hello(self, ctx):
         await ctx.send("Hello, I am Astel! 👾")
 
+    #Ping    
+    @commands.command()
+    async def ping(self, ctx):
+        await ctx.send("Pong!")
+
     # Welcome Message
     @commands.Cog.listener()
     async def on_member_join(self, member):
