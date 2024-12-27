@@ -53,7 +53,7 @@ class Music(commands.Cog):
                 song['player'],
                 after=lambda e: self.play_next(ctx) if e is None else print(f"Player error: {e}")
             )
-            asyncio.run_coroutine_threadsafe(ctx.send(f"Now playing: {song['title']}"), self.client.loop)
+            asyncio.run_coroutine_threadsafe(ctx.send(f"🎶Now playing: {song['title']}"), self.client.loop)
 
     @commands.command()
     async def leave(self, ctx):
@@ -95,10 +95,10 @@ class Music(commands.Cog):
                         player,
                         after=lambda e: self.play_next(ctx) if e is None else print(f"Player error: {e}")
                     )
-                    await ctx.send(f"Now playing: {player.title}")
+                    await ctx.send(f"🎶Now playing: {player.title}")
                 else:
                     self.queue.append({'player': player, 'title': player.title})
-                    await ctx.send(f"Added to queue: {player.title}")
+                    await ctx.send(f"🎶Added to queue: {player.title}")
             except Exception as e:
                 await ctx.send("An error occurred while trying to play the music.")
                 print(f"Error in play command: {e}")
